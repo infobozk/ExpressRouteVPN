@@ -19,7 +19,7 @@ This guideline will help you understand the implications and challenges associat
 
 ## ExpressRoute 
 Let's examine the ExpressRoute architecture we are working with:
-![](https://github.com/b-ozk/ExpressRouteVPN/blob/19a8f3f8e8f731d55ed364d35059d1d256eab4e1/images/ExpressRoute_Setup.png)
+![](https://github.com/infobozk/ExpressRouteVPN/blob/52df2e7a82b1e01c096bfb91241d0a5ad9167f83/images/ExpressRoute_Setup.png)
 
 Deployment can be done following the guidance on the Azure Docs website. Alternatively, you can use the following Terraform code:
 > An existing circuit is assumed, modify where needed.
@@ -108,7 +108,7 @@ LocPrf    Network             NextHop         Path            Weight
 These IP addresses will be used as the VPN endpoints.
 ## VPN
 Now, let's examine the VPN architecture layered on top of the ExpressRoute connection:
-![](https://github.com/b-ozk/ExpressRouteVPN/blob/19a8f3f8e8f731d55ed364d35059d1d256eab4e1/images/VPN_Setup.png)
+![](https://github.com/infobozk/ExpressRouteVPN/blob/52df2e7a82b1e01c096bfb91241d0a5ad9167f83/images/VPN_Setup.png)
 Important points to note:
 
 + Utilize the Private IP addresses of the VPN Gateways. These addresses are advertised over the BGP session of the ExpressRoute Circuit.
@@ -286,20 +286,20 @@ The strategy here is as follows:
 
 ## Route symmetry 
 With this setup, traffic will flow symmetrically between Azure and the datacenters. Consider a scenario where the architecture is modified slightly:
-![](https://github.com/b-ozk/ExpressRouteVPN/blob/9772df41d2bb715af1a6147fc5a7df4cfe1d8cae/images/Firewall_Setup.png)
+![](https://github.com/infobozk/ExpressRouteVPN/blob/52df2e7a82b1e01c096bfb91241d0a5ad9167f83/images/Firewall_Setup.png)
 
 + An Azure Firewall is introduced into the Hub Network.
 + A User-Defined Route (UDR) directs all traffic from the spokes to the Azure Firewall.
 
 As a result, our traffic flows will change, as illustrated here:
-![](https://github.com/b-ozk/ExpressRouteVPN/blob/9772df41d2bb715af1a6147fc5a7df4cfe1d8cae/images/Firewall_TrafficFlow.png)
+![](https://github.com/infobozk/ExpressRouteVPN/blob/52df2e7a82b1e01c096bfb91241d0a5ad9167f83/images/Firewall_TrafficFlow.png)
 
 We observe that the traffic flow is not symmetrical. Incoming traffic bypasses the Azure Firewall and directly targets the Virtual Machine. Conversely, traffic originating from the Azure Virtual Machine first encounters the Azure Firewall before reaching the VPN Gateway.
 
 To address this, we can assign a Route Table to the GatewaySubnet:
 
 + All traffic destined for the Spoke Virtual Networks, and passing through the Gateways, will be routed to the Azure Firewall. This ensures that our traffic flow remains symmetric, as shown in the following diagram:
-![](https://github.com/b-ozk/ExpressRouteVPN/blob/9772df41d2bb715af1a6147fc5a7df4cfe1d8cae/images/Firewall_TrafficFlowSymmetric.png)
+![](https://github.com/infobozk/ExpressRouteVPN/blob/52df2e7a82b1e01c096bfb91241d0a5ad9167f83/images/Firewall_TrafficFlowSymmetric.png)
 
 ## Summary
 As we conclude this guideline, let's recap the essential aspects of integrating VPN and ExpressRoute for secure and efficient network traffic management between Azure and your datacenters:
