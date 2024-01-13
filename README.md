@@ -1,7 +1,5 @@
 # Site-to-Site VPN connection over ExpressRoute private peering
 
-## 
-
 - [Introduction](#introduction)
 - [ExpressRoute](#ExpressRoute)
 - [VPN](#VPN)
