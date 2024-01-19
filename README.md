@@ -303,7 +303,8 @@ To address this, we can assign a Route Table to the GatewaySubnet:
 As we conclude this guideline, let's recap the essential aspects of integrating VPN and ExpressRoute for secure and efficient network traffic management between Azure and your datacenters:
 
 + Integration of ExpressRoute and VPN: We explored how to configure Site-to-Site VPN Tunnels over an ExpressRoute circuit.
-Route Manipulation Strategies: The guideline emphasized the importance of BGP in route manipulation, using Prefix Lists and 
+
++ Route Manipulation Strategies: The guideline emphasized the importance of BGP in route manipulation, using Prefix Lists and 
 
 + Route Maps to selectively accept and advertise routes, ensuring optimal traffic flow.
 
